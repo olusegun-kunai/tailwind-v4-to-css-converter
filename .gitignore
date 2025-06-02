@@ -1,0 +1,23 @@
+# Build artifacts
+tailwind-converter
+*.exe
+
+# Test outputs
+test/output/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp 
