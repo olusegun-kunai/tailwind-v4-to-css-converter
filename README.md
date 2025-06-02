@@ -142,33 +142,8 @@ To verify the solution works:
 - **Border**: `border-b`, `border-blue-200`, `rounded-lg`
 - **Shadow**: `shadow`, `shadow-md`, `shadow-lg`
 
-## Architecture
-
-```
-internal/
-├── parser/
-│   ├── html.go          # Parse HTML/JSX/TSX files
-│   └── classes.go       # Extract Tailwind classes
-├── generator/
-│   ├── css.go           # Generate CSS modules
-│   └── html.go          # Update HTML with semantic classes
-converter/
-├── converter.go         # Main conversion logic with deduplication
-├── mappings.go          # Comprehensive Tailwind to CSS mappings
-└── modern.go            # Modern CSS features support
-```
-
-## Improvements Made
-
-- **Fixed duplicate class references** in generated components
-- **Enhanced Tailwind mappings** to support 200+ classes
-- **Improved semantic naming** based on element type and class categories
-- **Better CSS property deduplication** to prevent conflicts
-- **Comprehensive color support** for blue, red, green, gray, purple palettes
-- **Responsive and pseudo-state handling** for modern CSS features
 
 ## Current Limitations
-
 - Dynamic class names not supported (e.g., template literals with variables)
 - Some complex Tailwind plugins may need manual conversion
 - Single file processing requires directory input
@@ -180,7 +155,3 @@ converter/
 2. Create a feature branch
 3. Add tests for new functionality
 4. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
