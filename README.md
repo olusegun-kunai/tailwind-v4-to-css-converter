@@ -107,14 +107,20 @@ To verify the solution works:
    go build -o tailwind-converter
    ```
 
-2. **Create test files:**
+2. **Try the live demo:**
+   ```bash
+   # Run on the included example project
+   ./tailwind-converter --input ./example/src --output ./example/dist --verbose
+   
+   # Compare before/after results
+   ls example/src/     # Original Tailwind components
+   ls example/dist/    # Converted CSS modules
+   ```
+
+3. **Create your own test:**
    ```bash
    mkdir -p test/src test/output
    # Add your HTML/JSX/TSX files to test/src/
-   ```
-
-3. **Run conversion:**
-   ```bash
    ./tailwind-converter --input ./test/src --output ./test/output --verbose
    ```
 
@@ -122,6 +128,15 @@ To verify the solution works:
    - Check that `.module.css` files are generated
    - Verify component files have CSS module imports
    - Ensure classes are properly converted and deduplicated
+
+## Live Demo
+
+See the `example/` directory for a complete React project demonstration:
+- **`example/src/`** - Original components with Tailwind classes
+- **`example/dist/`** - Converted components with CSS modules  
+- **`example/DEMO.md`** - Detailed before/after comparison
+
+This shows real-world conversion of product cards, navigation headers, and responsive grids.
 
 ## Supported Tailwind Classes
 

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind to CSS Converter - Live Demo</title>
+    
+    <!-- Import converted CSS modules -->
+    <link rel="stylesheet" href="dist/Card.module.css">
+    <link rel="stylesheet" href="dist/Header.module.css">
+    <link rel="stylesheet" href="dist/ProductGrid.module.css">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f9fafb;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .demo-section {
+            margin-bottom: 60px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .demo-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        .demo-description {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        /* Mock product grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="text-align: center; color: #1f2937; margin-bottom: 40px;">
+            🚀 Live Demo: Converted CSS in Action
+        </h1>
+        
+        <!-- Header Demo -->
+        <div class="demo-section">
+            <h2 class="demo-title">Header Component (Converted CSS)</h2>
+            <p class="demo-description">This header uses the converted CSS classes instead of Tailwind</p>
+            
+            <header class="header_visual_1">
+                <div class="div_layout_6">
+                    <div class="div_layout_6">
+                        <div class="div_layout_6">
+                            <img src="https://via.placeholder.com/32x32/3b82f6/ffffff?text=L" alt="Logo" class="img_layout_4">
+                            <h1 class="h1_text_2">ShopApp</h1>
+                        </div>
+                        
+                        <nav class="nav_layout_7">
+                            <a href="#" class="a_text_8">Home</a>
+                            <a href="#" class="a_text_8">Products</a>
+                            <a href="#" class="a_text_8">About</a>
+                            <a href="#" class="a_text_8">Contact</a>
+                        </nav>
+                        
+                        <div class="div_layout_6">
+                            <button class="button_9">🛒 Cart (3)</button>
+                            <button class="button_1">Sign In</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <!-- Card Demo -->
+        <div class="demo-section">
+            <h2 class="demo-title">Product Cards (Converted CSS)</h2>
+            <p class="demo-description">These cards use semantic CSS classes generated from Tailwind</p>
+            
+            <div class="product-grid">
+                <!-- Card 1 -->
+                <div class="div_layout_2">
+                    <img src="https://via.placeholder.com/300x192/6366f1/ffffff?text=Headphones" alt="Headphones" class="img_layout_4">
+                    <div class="div_layout_2">
+                        <h3 class="h3_text_3">Wireless Headphones</h3>
+                        <p class="p_text_5">High-quality sound with noise cancellation technology</p>
+                        <div class="div_layout_2">
+                            <span class="span_text_6">$199</span>
+                            <button class="button_1">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="div_layout_2">
+                    <img src="https://via.placeholder.com/300x192/10b981/ffffff?text=Watch" alt="Smart Watch" class="img_layout_4">
+                    <div class="div_layout_2">
+                        <h3 class="h3_text_3">Smart Watch</h3>
+                        <p class="p_text_5">Track your fitness and stay connected all day</p>
+                        <div class="div_layout_2">
+                            <span class="span_text_6">$299</span>
+                            <button class="button_1">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="div_layout_2">
+                    <img src="https://via.placeholder.com/300x192/f59e0b/ffffff?text=Stand" alt="Laptop Stand" class="img_layout_4">
+                    <div class="div_layout_2">
+                        <h3 class="h3_text_3">Laptop Stand</h3>
+                        <p class="p_text_5">Ergonomic design for better posture while working</p>
+                        <div class="div_layout_2">
+                            <span class="span_text_6">$49</span>
+                            <button class="button_1">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="demo-section">
+            <h2 class="demo-title">🎯 What You're Seeing</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3 style="color: #ef4444;">❌ Before (Tailwind Classes)</h3>
+                    <pre style="background: #fee2e2; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px;">class="bg-white rounded-xl shadow-lg 
+overflow-hidden hover:shadow-xl 
+transition-shadow duration-300"</pre>
+                </div>
+                <div>
+                    <h3 style="color: #10b981;">✅ After (CSS Modules)</h3>
+                    <pre style="background: #d1fae5; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px;">class="div_layout_2"
+
+/* CSS file */
+.div_layout_2 {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactivity to demonstrate hover states
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.button_1');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                    
+                    // Show notification
+                    const notification = document.createElement('div');
+                    notification.textContent = '✅ Added to cart!';
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #10b981;
+                        color: white;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        z-index: 1000;
+                        transition: all 0.3s ease;
+                    `;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.style.opacity = '0';
+                        setTimeout(() => notification.remove(), 300);
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

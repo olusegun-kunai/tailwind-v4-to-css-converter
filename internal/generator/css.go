@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"fmt"
 	"os"
 	"strings"
 	"tailwind-v4-to-css-converter/converter"
@@ -245,4 +246,47 @@ func DefaultCSSOptions() CSSOptions {
 		Minify:     false,
 		IndentSize: 2,
 	}
+}
+
+// GenerateApplyBasedCSS creates CSS using @apply strategy for accurate Tailwind compilation
+func GenerateApplyBasedCSS(mappings []converter.SemanticMapping) string {
+	var cssBuilder strings.Builder
+
+	cssBuilder.WriteString("/* Generated CSS using @apply strategy */\n")
+	cssBuilder.WriteString("/* This CSS should be processed through Tailwind CSS compiler */\n\n")
+
+	for _, mapping := range mappings {
+		cssBuilder.WriteString(fmt.Sprintf(".%s {\n", mapping.SemanticName))
+		cssBuilder.WriteString(fmt.Sprintf("  @apply %s;\n", mapping.OriginalClasses))
+		cssBuilder.WriteString("}\n\n")
+	}
+
+	return cssBuilder.String()
+}
+
+// GenerateCompilationTestCSS creates a complete CSS file for testing Tailwind compilation
+func GenerateCompilationTestCSS(mappings []converter.SemanticMapping) string {
+	var cssBuilder strings.Builder
+
+	// Add Tailwind directives for compilation
+	cssBuilder.WriteString("@tailwind base;\n")
+	cssBuilder.WriteString("@tailwind components;\n")
+	cssBuilder.WriteString("@tailwind utilities;\n\n")
+
+	// Add our custom components with @apply
+	cssBuilder.WriteString("/* Custom component styles */\n")
+
+	for _, mapping := range mappings {
+		cssBuilder.WriteString(fmt.Sprintf(".%s {\n", mapping.SemanticName))
+		cssBuilder.WriteString(fmt.Sprintf("  @apply %s;\n", mapping.OriginalClasses))
+		cssBuilder.WriteString("}\n\n")
+	}
+
+	return cssBuilder.String()
+}
+
+// GenerateReadyToCompileCSS creates CSS that can be processed by Tailwind CLI
+func GenerateReadyToCompileCSS(mappings []converter.SemanticMapping, outputPath string) error {
+	content := GenerateCompilationTestCSS(mappings)
+	return os.WriteFile(outputPath, []byte(content), 0644)
 }

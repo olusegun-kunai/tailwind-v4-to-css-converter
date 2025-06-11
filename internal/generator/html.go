@@ -252,3 +252,41 @@ type HTMLTemplate struct {
 	ImportGenerator func(content, moduleName string) string
 	PostProcessor   func(string) string
 }
+
+// DualOutput represents both Tailwind and vanilla CSS versions
+type DualOutput struct {
+	TailwindVersion string // Original component with Tailwind classes
+	VanillaVersion  string // Component with semantic classes
+	CSSFile         string // CSS file content with actual styles
+}
+
+// GenerateDualOutput creates both Tailwind and vanilla CSS versions
+func GenerateDualOutput(content string, mappings []converter.SemanticMapping) DualOutput {
+	// Create temporary document for processing
+	doc := &parser.Document{Content: content}
+
+	// Create HTML generator to handle class replacement
+	htmlGen := NewHTMLGenerator()
+	vanillaContent := htmlGen.updateClassReferences(doc, mappings, "")
+
+	return DualOutput{
+		TailwindVersion: content, // Keep original unchanged
+		VanillaVersion:  vanillaContent,
+		CSSFile:         GenerateApplyBasedCSS(mappings),
+	}
+}
+
+// GenerateTailwindVersion keeps the original component unchanged
+func GenerateTailwindVersion(content string) string {
+	return content // No changes needed
+}
+
+// GenerateVanillaVersion replaces Tailwind classes with semantic classes
+func GenerateVanillaVersion(content string, mappings []converter.SemanticMapping) string {
+	// Create temporary document for processing
+	doc := &parser.Document{Content: content}
+
+	// Create HTML generator to handle class replacement
+	htmlGen := NewHTMLGenerator()
+	return htmlGen.updateClassReferences(doc, mappings, "")
+}

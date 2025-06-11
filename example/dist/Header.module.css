@@ -1,0 +1,58 @@
+/* Generated CSS Module */
+/* Converted from Tailwind CSS classes */
+
+.button_1 {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #2563eb;
+}
+
+.button_1:hover {
+  background-color: #1d4ed8;
+}
+.span_container_2 {
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.75rem;
+  width: 1.25rem;
+  background-color: #ef4444;
+  height: 1.25rem;
+}
+.a_text_3 {
+  font-weight: 500;
+  color: #374151;
+}
+
+.a_text_3:hover {
+  color: #2563eb;
+}
+.svg_layout_4 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.img_layout_5 {
+  height: 2rem;
+  border-radius: 9999px;
+  width: 2rem;
+}
+.nav_layout_6 {
+  display: none;
+  /* Responsive: md */ flex
+  /* Unknown classes */ space-x-8
+}
+.header_visual_7 {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+}
+.div_layout_8 {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  /* Unknown classes */ space-x-4
+}
+.h1_text_9 {
+  color: #111827;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
