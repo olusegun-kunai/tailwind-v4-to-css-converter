@@ -1,197 +1,87 @@
-# Qwik Tailwind to CSS Modules Converter (TypeScript Implementation)
+# Tailwind to CSS Module Converter
 
-A TypeScript-based CLI tool that converts Qwik components from Tailwind classes to CSS modules using UnoCSS for reliable CSS generation.
+A TypeScript-based tool that converts Tailwind CSS classes to CSS Modules, with semantic class naming and component-based organization.
 
-> **Note**: This is the TypeScript implementation branch. For the original Go implementation, see the `main` branch.
+## 🚀 Features Implemented
 
-## 🚀 Features
+- **JSX Parser**: Successfully parses React components and extracts Tailwind classes
+- **UnoCSS Integration**: Uses UnoCSS for accurate Tailwind class processing
+- **CSS Module Generation**: Converts Tailwind classes to CSS Modules with semantic naming
+- **Diff Visualization**: Shows changes between original and converted code in both console and HTML formats
+- **Component Analysis**: Provides detailed analysis of component structure and class usage
+- **Type Safety**: Full TypeScript support with proper type definitions
 
-- **Node-by-Node Processing**: Parses each JSX element individually with semantic naming
-- **Semantic CSS Class Names**: Component parts get meaningful names (`.trigger`, `.indicator`) while HTML elements get sequential names (`.node0`, `.node1`)
-- **UnoCSS Integration**: Uses UnoCSS generator for reliable Tailwind-to-CSS conversion
-- **CSS Modules Output**: Generates properly scoped CSS modules with clean formatting
-- **Modifier Support**: Handles pseudo-selectors like `:hover`, `:focus`, `:disabled` 
-- **Component Update**: Automatically updates JSX to use CSS module imports
+## 📦 Project Structure
 
-## 🛠️ Installation & Setup
+```
+src/
+├── lib/
+│   ├── jsxParser.ts    # JSX parsing and analysis
+│   ├── unoGenerator.ts # UnoCSS integration
+│   └── converter.ts    # Main conversion logic
+├── utils/
+│   └── cli.ts         # CLI utilities
+└── types/
+    └── index.ts       # TypeScript type definitions
+```
+
+## 🛠️ Usage
 
 ```bash
-npm install
+# Convert a single file
+npm run convert -- path/to/component.tsx
+
+# Convert a directory
+npm run convert -- path/to/components/directory
 ```
 
-## 📖 Usage
+## 🎯 Current Status
 
-### Command Line Interface
+### Completed
+- ✅ Basic JSX parsing and class extraction
+- ✅ UnoCSS integration for Tailwind processing
+- ✅ CSS Module generation with semantic naming
+- ✅ Diff visualization (console and HTML)
+- ✅ Component analysis and statistics
+- ✅ TypeScript type definitions
+- ✅ Basic CLI interface
 
-```bash
-# Basic usage
-npm run dev -- -i ./examples/checkbox.tsx -o ./output
+### In Progress
+- 🔄 Enhanced class name generation
+- 🔄 Improved component analysis
+- 🔄 Better error handling and reporting
 
-# With verbose logging
-npm run dev -- -i ./examples/checkbox.tsx -o ./output -v
-
-# Using the demo command
-npm run demo
-```
-
-### Available Scripts
-
-```bash
-npm run dev          # Run the converter CLI
-npm run build        # Compile TypeScript to dist/
-npm run demo         # Demo conversion with checkbox example
-npm run test:all     # Run all tests
-npm run test:basic   # Test UnoCSS generator only
-npm run test:jsx     # Test JSX parser only  
-npm run test:converter # Test full conversion pipeline
-npm run clean        # Clean output directories
-```
-
-## 📁 Input/Output Example
-
-### Input Component (`checkbox.tsx`)
-```tsx
-import { component$ } from "@builder.io/qwik";
-import { Checkbox } from "@kunai-consulting/qwik";
-
-export default component$(() => {
-  return (
-    <Checkbox.Root>
-      <div class="flex items-center gap-2">
-        <Checkbox.Trigger class="size-[25px] rounded-lg relative bg-gray-500">
-          <Checkbox.Indicator class="data-[checked]:flex justify-center items-center">
-            <LuCheck />
-          </Checkbox.Indicator>
-        </Checkbox.Trigger>
-        <Checkbox.Label class="text-sm">
-          This is a trusted device
-        </Checkbox.Label>
-      </div>
-    </Checkbox.Root>
-  );
-});
-```
-
-### Generated CSS Modules (`checkbox.module.css`)
-```css
-/* Generated CSS Modules from Tailwind classes */
-
-.node0 {
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
-}
-
-.trigger {
-  position:relative;
-  width:25px;
-  height:25px;
-  border-radius:0.5rem;
-  --un-bg-opacity:1;
-  background-color:rgb(107 114 128 / var(--un-bg-opacity));
-}
-
-.indicator {
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.label {
-  font-size:0.875rem;
-  line-height:1.25rem;
-}
-```
-
-### Updated Component (`checkbox.tsx`)
-```tsx
-import { component$ } from "@builder.io/qwik";
-import { Checkbox } from "@kunai-consulting/qwik";
-import styles from './checkbox.module.css';
-
-export default component$(() => {
-  return (
-    <Checkbox.Root>
-      <div class={styles.node0}>
-        <Checkbox.Trigger class={styles.trigger}>
-          <Checkbox.Indicator class={styles.indicator}>
-            <LuCheck />
-          </Checkbox.Indicator>
-        </Checkbox.Trigger>
-        <Checkbox.Label class={styles.label}>
-          This is a trusted device
-        </Checkbox.Label>
-      </div>
-    </Checkbox.Root>
-  );
-});
-```
-
-## 🏗️ Architecture
-
-### Core Components
-
-- **`src/index.ts`**: CLI entry point with argument parsing
-- **`src/lib/converter.ts`**: Main orchestrator class
-- **`src/lib/unoGenerator.ts`**: UnoCSS wrapper for CSS generation
-- **`src/lib/jsxParser.ts`**: JSX parsing and node extraction
-- **`src/utils/cli.ts`**: Command-line argument handling
-- **`src/types/index.ts`**: TypeScript type definitions
-
-### Processing Pipeline
-
-1. **JSX Parsing**: Extract JSX nodes with class attributes
-2. **Semantic Naming**: Assign meaningful class names based on component structure
-3. **CSS Generation**: Use UnoCSS to convert Tailwind classes to CSS
-4. **CSS Modules Creation**: Format generated CSS as scoped modules
-5. **Component Update**: Replace class attributes with CSS module references
-
-## 🔧 Technical Details
-
-### Semantic Naming Logic
-- **Components**: `<Checkbox.Trigger>` → `.trigger`
-- **HTML Elements**: `<div>`, `<span>` → `.node0`, `.node1`, etc.
-
-### UnoCSS Integration
-- Uses `@unocss/core` with `@unocss/preset-wind` (Tailwind preset)
-- Reliable CSS generation via programmatic API
-- Handles complex Tailwind features like arbitrary values and modifiers
-
-### CSS Processing
-- Extracts only the "default" layer (utility classes)
-- Removes UnoCSS preflights and variable declarations
-- Clean formatting with proper indentation
+### To Do
+- [ ] Support for nested components
+- [ ] Handling of dynamic classes
+- [ ] Support for Tailwind plugins
+- [ ] Performance optimizations
+- [ ] More comprehensive testing
+- [ ] Documentation improvements
+- [ ] Example components and use cases
+- [ ] Integration with build tools
 
 ## 🧪 Testing
 
-The project includes comprehensive tests:
+```bash
+# Run all tests
+npm test
 
-- **Basic Tests**: UnoCSS generator functionality
-- **JSX Parser Tests**: Node extraction and class parsing
-- **Converter Tests**: End-to-end conversion pipeline
+# Run specific test file
+npm test -- tests/jsx-parser.test.ts
+```
 
-## 📦 Dependencies
+## 📝 Notes
 
-- **Core**: `@unocss/core`, `@unocss/preset-wind`
-- **Development**: `tsx`, `typescript`, `@types/node`
-- **Runtime**: Node.js 18+ with ES modules support
+- The converter currently focuses on static Tailwind classes
+- Dynamic classes (using template literals or variables) are not yet supported
+- Nested component analysis is in progress
+- Performance optimizations are planned for larger codebases
 
-## 🎯 Project Status
+## 🤝 Contributing
 
-✅ **Completed Features**:
-- Full conversion pipeline
-- Semantic naming system
-- UnoCSS integration
-- CSS modules generation
-- CLI interface
-- Comprehensive testing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 🌿 Branch Information
+## 📄 License
 
-- **Current Branch**: `typescript-converter` - Clean TypeScript implementation
-- **Main Branch**: Contains the original Go-based converter implementation
-- **Migration**: This TypeScript implementation replaces the previous @apply-based approach with a more reliable UnoCSS-based solution
-
-This converter successfully transitions from the previous @apply-based approach to a more reliable UnoCSS-based solution, providing clean CSS modules output with semantic class names. 
+MIT 

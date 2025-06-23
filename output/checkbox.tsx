@@ -7,17 +7,17 @@ export default component$(() => {
   return (
     <Checkbox.Root>
       <Checkbox.HiddenInput />
-      <div className={styles.node0}>
+      <div class=""={styles.node0}>
         <Checkbox.Trigger
-          className={styles.trigger}
+          class=""={styles.trigger}
         >
           <Checkbox.Indicator
-            className={styles.indicator}
+            class=""={styles.indicator}
           >
             <LuCheck />
           </Checkbox.Indicator>
         </Checkbox.Trigger>
-        <Checkbox.Label className={styles.label}>
+        <Checkbox.Label class=""={styles.label}>
           This is a trusted device, don't ask again
         </Checkbox.Label>
       </div>

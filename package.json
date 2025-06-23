@@ -15,6 +15,7 @@
     "demo": "npm run dev -- -i ./examples/checkbox.tsx -o ./demo-output -v",
     "clean": "rm -rf dist output test-output demo-output"
   },
+  
   "keywords": [
     "tailwind",
     "css-modules", 

@@ -3,23 +3,27 @@ import path from 'path';
 import { ConversionResult, JSXNode, GeneratedCSS } from '../types/index.js';
 import { UnoGenerator } from './unoGenerator.js';
 import { JSXParser } from './jsxParser.js';
+import { DiffGenerator, ChangeReport } from './diffGenerator.js';
 
 export class QwikTailwindConverter {
   private unoGenerator: UnoGenerator;
   private jsxParser: JSXParser;
+  private diffGenerator: DiffGenerator;
 
   constructor() {
     this.unoGenerator = new UnoGenerator();
     this.jsxParser = new JSXParser();
+    this.diffGenerator = new DiffGenerator();
   }
 
   /**
    * Convert a Qwik component file to CSS modules
    * @param inputPath - Path to the input .tsx file
    * @param outputDir - Directory to write output files
+   * @param generateDiff - Whether to generate diff report (default: false)
    * @returns Conversion result with file paths and content
    */
-  async convertFile(inputPath: string, outputDir: string): Promise<ConversionResult> {
+  async convertFile(inputPath: string, outputDir: string, generateDiff: boolean = false): Promise<ConversionResult> {
     try {
       // Read input file
       const jsxContent = await fs.readFile(inputPath, 'utf-8');
@@ -56,11 +60,24 @@ export class QwikTailwindConverter {
       await fs.writeFile(cssModulesPath, cssModulesContent);
       await fs.writeFile(componentPath, updatedJSX);
       
+      // Generate diff report if requested
+      let changeReport: ChangeReport | undefined;
+      if (generateDiff) {
+        changeReport = this.diffGenerator.generateChangeReport(
+          jsxContent,
+          updatedJSX,
+          cssModulesContent,
+          jsxNodes,
+          inputPath
+        );
+      }
+      
       return {
         cssModulesPath,
         componentPath,
         cssContent: cssModulesContent,
-        updatedComponent: updatedJSX
+        updatedComponent: updatedJSX,
+        changeReport
       };
       
     } catch (error) {
@@ -212,11 +229,11 @@ export class QwikTailwindConverter {
       // Create regex to match the specific class attribute for this node
       const escapedTagName = node.tagName.replace(/\./g, '\\.');
       const classRegex = new RegExp(
-        `(<${escapedTagName}[^>]*(?:class|className)=")([^"']+)(")`,
+        `(<${escapedTagName}[^>]*)((?:class|className)=")([^"']+)(")`,
         'g'
       );
       
-      updatedContent = updatedContent.replace(classRegex, `$1{styles.${node.semanticName}}$3`);
+      updatedContent = updatedContent.replace(classRegex, `$1className={styles.${node.semanticName}}`);
     }
     
     return updatedContent;

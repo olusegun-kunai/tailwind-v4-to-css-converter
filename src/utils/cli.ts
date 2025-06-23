@@ -6,7 +6,9 @@ export function parseArgs(): CliArgs {
   const result: CliArgs = {
     input: '',
     output: '',
-    verbose: false
+    verbose: false,
+    diff: false,
+    htmlDiff: false
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -24,6 +26,14 @@ export function parseArgs(): CliArgs {
       case '-v':
       case '--verbose':
         result.verbose = true;
+        break;
+      case '-d':
+      case '--diff':
+        result.diff = true;
+        break;
+      case '--html-diff':
+        result.htmlDiff = true;
+        result.diff = true; // HTML diff implies diff
         break;
       case '-h':
       case '--help':
@@ -59,10 +69,14 @@ Options:
   -i, --input     Input Qwik component file (.tsx)
   -o, --output    Output directory for generated files
   -v, --verbose   Enable verbose logging
+  -d, --diff      Show conversion changes in console
+  --html-diff     Generate HTML diff report
   -h, --help      Show this help message
 
 Examples:
   tsx src/index.ts -i ./examples/checkbox.tsx -o ./output
   tsx src/index.ts -i ./components/button.tsx -o ./dist -v
+  tsx src/index.ts -i ./components/button.tsx -o ./dist --diff
+  tsx src/index.ts -i ./components/button.tsx -o ./dist --html-diff
 `);
 } 

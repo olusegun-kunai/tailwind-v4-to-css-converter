@@ -3,12 +3,39 @@ export interface ConversionResult {
   componentPath: string;
   cssContent: string;
   updatedComponent: string;
+  changeReport?: ChangeReport;
+}
+
+export interface ChangeReport {
+  originalFile: string;
+  modifiedFile: string;
+  cssModulesFile: string;
+  changes: Change[];
+  summary: ChangeSummary;
+}
+
+export interface Change {
+  type: 'class-replacement' | 'import-added';
+  line: number;
+  original: string;
+  modified: string;
+  cssClass: string;
+  semanticName: string;
+}
+
+export interface ChangeSummary {
+  totalNodes: number;
+  classesConverted: number;
+  importsAdded: number;
+  cssRulesGenerated: number;
 }
 
 export interface CliArgs {
   input: string;
   output: string;
   verbose?: boolean;
+  diff?: boolean;
+  htmlDiff?: boolean;
 }
 
 export interface JSXNode {
