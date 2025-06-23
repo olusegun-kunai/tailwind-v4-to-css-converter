@@ -1,0 +1,35 @@
+/* Generated CSS Modules from Tailwind classes */
+
+.node0 {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+
+.trigger {
+  position:relative;
+  width:25px;
+  height:25px;
+  border-radius:0.5rem;
+  --un-bg-opacity:1;
+  background-color:rgb(107 114 128 / var(--un-bg-opacity));
+  opacity:0.5;
+  outline-width:1px;
+  --un-outline-color-opacity:1;
+  outline-color:rgb(255 255 255 / var(--un-outline-color-opacity));
+  outline-style:solid;
+}
+
+.indicator {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.label {
+  font-size:0.875rem;
+  line-height:1.25rem;
+}
+
