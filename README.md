@@ -25,58 +25,44 @@ src/
     └── index.ts       # TypeScript type definitions
 ```
 
-## 🛠️ Usage
+## 🛠️ CLI Usage
 
 ```bash
-# Convert a single file
-npm run convert -- path/to/component.tsx
+# Convert a single file (outputs updated component + CSS module in the output dir)
+npm run convert -- -i path/to/component.tsx -o path/to/output [-v] [-d] [--html-diff]
 
-# Convert a directory
-npm run convert -- path/to/components/directory
+# Example
+npm run convert -- -i ./qwik-convertor-test/src/routes/tailwind/index.tsx -o ./test-output/qwik -v -d
 ```
 
-## 🎯 Current Status
+## 🔗 Qwik Demo (Tailwind → Vanilla)
 
-### Completed
-- ✅ Basic JSX parsing and class extraction
-- ✅ UnoCSS integration for Tailwind processing
-- ✅ CSS Module generation with semantic naming
-- ✅ Diff visualization (console and HTML)
-- ✅ Component analysis and statistics
-- ✅ TypeScript type definitions
-- ✅ Basic CLI interface
+This repo includes a Qwik app to demonstrate converting Tailwind classes to vanilla CSS.
 
-### In Progress
-- 🔄 Enhanced class name generation
-- 🔄 Improved component analysis
-- 🔄 Better error handling and reporting
-
-### To Do
-- [ ] Support for nested components
-- [ ] Handling of dynamic classes
-- [ ] Support for Tailwind plugins
-- [ ] Performance optimizations
-- [ ] More comprehensive testing
-- [ ] Documentation improvements
-- [ ] Example components and use cases
-- [ ] Integration with build tools
-
-## 🧪 Testing
+### Quickstart
 
 ```bash
-# Run all tests
-npm test
+# 1) Install repo deps
+npm install
 
-# Run specific test file
-npm test -- tests/jsx-parser.test.ts
+# 2) Generate CSS from the Tailwind route and update the vanilla route
+npm run update:vanilla
+
+# 3) Install and start the Qwik demo app
+npm --prefix ./qwik-convertor-test install
+npm --prefix ./qwik-convertor-test run dev
 ```
 
-## 📝 Notes
+Open `http://localhost:5173/tailwind` and `http://localhost:5173/vanilla` and ensure they look identical.
 
-- The converter currently focuses on static Tailwind classes
-- Dynamic classes (using template literals or variables) are not yet supported
-- Nested component analysis is in progress
-- Performance optimizations are planned for larger codebases
+### Notes
+- The converter uses UnoCSS internally; your target project can keep using Tailwind.
+- If you prefer a one-liner: `npm run demo:all` will update CSS and start the dev server.
+
+## ✅ What to expect
+- Converter generates a `.module.css` file and updates the component to use it.
+- The included script updates the demo’s `vanilla.css` to match the Tailwind route.
+- The converter focuses on static Tailwind classes.
 
 ## 🤝 Contributing
 

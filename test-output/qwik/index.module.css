@@ -1,0 +1,12 @@
+/* Generated CSS Modules from Tailwind classes */
+
+.node0 {
+  --un-bg-opacity:1;
+  background-color:rgb(239 68 68 / var(--un-bg-opacity));
+  font-size:1.5rem;
+  line-height:2rem;
+  --un-text-opacity:1;
+  color:rgb(147 197 253 / var(--un-text-opacity));
+  font-weight:700;
+}
+
