@@ -8,7 +8,8 @@ export function parseArgs(): CliArgs {
     output: '',
     verbose: false,
     diff: false,
-    htmlDiff: false
+    htmlDiff: false,
+    theme: undefined
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -34,6 +35,9 @@ export function parseArgs(): CliArgs {
       case '--html-diff':
         result.htmlDiff = true;
         result.diff = true; // HTML diff implies diff
+        break;
+      case '--theme':
+        result.theme = args[++i];
         break;
       case '-h':
       case '--help':
@@ -71,6 +75,7 @@ Options:
   -v, --verbose   Enable verbose logging
   -d, --diff      Show conversion changes in console
   --html-diff     Generate HTML diff report
+  --theme         Path to theme configuration file (.json, .js, .ts)
   -h, --help      Show this help message
 
 Examples:
@@ -78,5 +83,6 @@ Examples:
   tsx src/index.ts -i ./components/button.tsx -o ./dist -v
   tsx src/index.ts -i ./components/button.tsx -o ./dist --diff
   tsx src/index.ts -i ./components/button.tsx -o ./dist --html-diff
+  tsx src/index.ts -i ./components/button.tsx -o ./dist --theme ./theme.json
 `);
 } 

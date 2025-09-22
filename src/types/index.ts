@@ -36,6 +36,7 @@ export interface CliArgs {
   verbose?: boolean;
   diff?: boolean;
   htmlDiff?: boolean;
+  theme?: string;
 }
 
 export interface JSXNode {
@@ -60,4 +61,18 @@ export interface CSSModifier {
 export interface UnoGeneratorResult {
   css: string;
   matched: Set<string>;
+}
+
+export interface ThemeConfig {
+  colors?: Record<string, any>;
+  fontSize?: Record<string, any>;
+  spacing?: Record<string, any>;
+  borderRadius?: Record<string, any>;
+  fontWeight?: Record<string, any>;
+  [key: string]: any;
+}
+
+export interface ThemeLoadResult {
+  theme: ThemeConfig;
+  path: string;
 } 

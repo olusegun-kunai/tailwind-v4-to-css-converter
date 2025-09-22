@@ -2,13 +2,31 @@
 
 import { QwikTailwindConverter } from './lib/converter.js';
 import { parseArgs } from './utils/cli.js';
+import { themeLoader } from './utils/themeLoader.js';
 import fs from 'fs/promises';
 
 async function main() {
   try {
     const args = parseArgs();
     
-    const converter = new QwikTailwindConverter();
+    // Load theme if specified
+    let themeConfig;
+    if (args.theme) {
+      try {
+        const themeResult = await themeLoader.loadTheme(args.theme);
+        themeConfig = themeResult.theme;
+        
+        if (args.verbose) {
+          themeLoader.printThemeSummary(themeResult);
+          console.log('');
+        }
+      } catch (error) {
+        console.error('❌ Theme loading failed:', error);
+        process.exit(1);
+      }
+    }
+    
+    const converter = new QwikTailwindConverter(themeConfig);
     
     console.log('🚀 Starting Qwik Tailwind to CSS Modules conversion...\n');
     

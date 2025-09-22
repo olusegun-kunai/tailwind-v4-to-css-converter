@@ -1,23 +1,29 @@
 import { createGenerator } from '@unocss/core';
 import presetWind from '@unocss/preset-wind';
-import { UnoGeneratorResult } from '../types/index.js';
+import { UnoGeneratorResult, ThemeConfig } from '../types/index.js';
 
 export class UnoGenerator {
   private generator: any;
+  private customTheme: ThemeConfig | undefined;
 
-  constructor() {
+  constructor(theme?: ThemeConfig) {
     // UnoCSS createGenerator returns a Promise
     this.generator = null;
+    this.customTheme = theme;
     this.initGenerator();
   }
 
   private async initGenerator() {
-    this.generator = await createGenerator({
+    const config: any = {
       presets: [presetWind()], // Tailwind 4 preset
-      theme: {
-        // Add any custom theme configuration here
-      }
-    });
+    };
+
+    // Apply custom theme if provided
+    if (this.customTheme && Object.keys(this.customTheme).length > 0) {
+      config.theme = this.customTheme;
+    }
+
+    this.generator = await createGenerator(config);
   }
 
   /**

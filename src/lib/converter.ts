@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { ConversionResult, JSXNode, GeneratedCSS } from '../types/index.js';
+import { ConversionResult, JSXNode, GeneratedCSS, ThemeConfig } from '../types/index.js';
 import { UnoGenerator } from './unoGenerator.js';
 import { JSXParser } from './jsxParser.js';
 import { DiffGenerator, ChangeReport } from './diffGenerator.js';
@@ -10,8 +10,8 @@ export class QwikTailwindConverter {
   private jsxParser: JSXParser;
   private diffGenerator: DiffGenerator;
 
-  constructor() {
-    this.unoGenerator = new UnoGenerator();
+  constructor(theme?: ThemeConfig) {
+    this.unoGenerator = new UnoGenerator(theme);
     this.jsxParser = new JSXParser();
     this.diffGenerator = new DiffGenerator();
   }
