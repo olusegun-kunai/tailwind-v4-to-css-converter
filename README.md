@@ -1,157 +1,73 @@
-# Tailwind v4+ to CSS Converter
+# Tailwind to CSS Module Converter
 
-A Go-based tool that converts Tailwind CSS v4+ classes in HTML/JSX/TSX files to semantic CSS modules with improved maintainability and performance.
+A TypeScript-based tool that converts Tailwind CSS classes to CSS Modules, with semantic class naming and component-based organization.
 
-## Features
+## 🚀 Features Implemented
 
-- ✅ Parse HTML, JSX, TSX, and Vue component files
-- ✅ Extract Tailwind classes and convert to vanilla CSS
-- ✅ Generate semantic CSS modules (.module.css files)
-- ✅ Update component files with CSS module imports
-- ✅ Deduplicate CSS properties automatically
-- ✅ Support for responsive classes and pseudo-states
-- ✅ Comprehensive Tailwind class mapping
-- ✅ CLI interface for batch processing
+- **JSX Parser**: Successfully parses React components and extracts Tailwind classes
+- **UnoCSS Integration**: Uses UnoCSS for accurate Tailwind class processing
+- **CSS Module Generation**: Converts Tailwind classes to CSS Modules with semantic naming
+- **Diff Visualization**: Shows changes between original and converted code in both console and HTML formats
+- **Component Analysis**: Provides detailed analysis of component structure and class usage
+- **Type Safety**: Full TypeScript support with proper type definitions
 
-## Installation
+## 📦 Project Structure
+
+```
+src/
+├── lib/
+│   ├── jsxParser.ts    # JSX parsing and analysis
+│   ├── unoGenerator.ts # UnoCSS integration
+│   └── converter.ts    # Main conversion logic
+├── utils/
+│   └── cli.ts         # CLI utilities
+└── types/
+    └── index.ts       # TypeScript type definitions
+```
+
+## 🛠️ CLI Usage
 
 ```bash
-git clone https://github.com/your-org/tailwind-v4-to-css-converter.git
-cd tailwind-v4-to-css-converter
-go mod tidy
-go build -o tailwind-converter
+# Convert a single file (outputs updated component + CSS module in the output dir)
+npm run convert -- -i path/to/component.tsx -o path/to/output [-v] [-d] [--html-diff]
+
+# Example
+npm run convert -- -i ./qwik-convertor-test/src/routes/tailwind/index.tsx -o ./test-output/qwik -v -d
 ```
 
-## Usage
+## 🔗 Qwik Demo (Tailwind → Vanilla)
 
-### Basic Usage
+This repo includes a Qwik app to demonstrate converting Tailwind classes to vanilla CSS.
+
+### Quickstart
 
 ```bash
-./tailwind-converter --input ./src/components --output ./dist
+# 1) Install repo deps
+npm install
+
+# 2) Generate CSS from the Tailwind route and update the vanilla route
+npm run update:vanilla
+
+# 3) Install and start the Qwik demo app
+npm --prefix ./qwik-convertor-test install
+npm --prefix ./qwik-convertor-test run dev
 ```
 
-### With Verbose Output
+Open `http://localhost:5173/tailwind` and `http://localhost:5173/vanilla` and ensure they look identical.
 
-```bash
-./tailwind-converter --input ./src/components --output ./dist --verbose
-```
+### Notes
+- The converter uses UnoCSS internally; your target project can keep using Tailwind.
+- If you prefer a one-liner: `npm run demo:all` will update CSS and start the dev server.
 
-### Convert Single Directory
+## ✅ What to expect
+- Converter generates a `.module.css` file and updates the component to use it.
+- The included script updates the demo’s `vanilla.css` to match the Tailwind route.
+- The converter focuses on static Tailwind classes.
 
-```bash
-./tailwind-converter --input ./src --output ./dist
-```
+## 🤝 Contributing
 
-## Example Conversion
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-**Input (otp-input.tsx):**
-```jsx
-export default component$(() => {
-  return (
-    <div class="flex flex-col items-center gap-4">
-      <div class="flex flex-col items-center text-center">
-        <h3 class="text-sm font-semibold">Two-step verification</h3>
-      </div>
-    </div>
-  );
-});
-```
+## 📄 License
 
-**Output (otp-input.tsx):**
-```jsx
-import styles from './otp-input.module.css';
-
-export default component$(() => {
-  return (
-    <div class={styles.div_layout_1}>
-      <div class={styles.div_container_2}>
-        <h3 class={styles.h3_text_3}>Two-step verification</h3>
-      </div>
-    </div>
-  );
-});
-```
-
-**Generated CSS (otp-input.module.css):**
-```css
-/* Generated CSS Module */
-/* Converted from Tailwind CSS classes */
-
-.div_layout_1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.div_container_2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.h3_text_3 {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-```
-
-## Testing
-
-To verify the solution works:
-
-1. **Build the tool:**
-   ```bash
-   go mod tidy
-   go build -o tailwind-converter
-   ```
-
-2. **Create test files:**
-   ```bash
-   mkdir -p test/src test/output
-   # Add your HTML/JSX/TSX files to test/src/
-   ```
-
-3. **Run conversion:**
-   ```bash
-   ./tailwind-converter --input ./test/src --output ./test/output --verbose
-   ```
-
-4. **Verify output:**
-   - Check that `.module.css` files are generated
-   - Verify component files have CSS module imports
-   - Ensure classes are properly converted and deduplicated
-
-## Supported Tailwind Classes
-
-### Core Utilities
-- **Display**: `flex`, `grid`, `block`, `inline`, `hidden`
-- **Flexbox**: `flex-col`, `items-center`, `justify-between`
-- **Spacing**: `p-4`, `m-2`, `gap-4`, `px-6`, `py-2`
-- **Sizing**: `w-full`, `h-64`, `w-4`, `h-4`
-- **Typography**: `text-sm`, `font-bold`, `font-semibold`
-- **Colors**: `bg-blue-500`, `text-red-600`, `border-green-200`
-- **Layout**: `container`, `mx-auto`
-- **Visual**: `bg-white`, `border`, `rounded-md`, `shadow-lg`
-
-### Advanced Features
-- **Responsive**: `md:grid-cols-2`, `lg:grid-cols-3`
-- **Pseudo-states**: `hover:bg-blue-700`, `focus:outline-none`
-- **Grid**: `grid-cols-1`, `grid-cols-4`
-- **Border**: `border-b`, `border-blue-200`, `rounded-lg`
-- **Shadow**: `shadow`, `shadow-md`, `shadow-lg`
-
-
-## Current Limitations
-- Dynamic class names not supported (e.g., template literals with variables)
-- Some complex Tailwind plugins may need manual conversion
-- Single file processing requires directory input
-- AI integration for unknown classes not yet implemented
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
+MIT 

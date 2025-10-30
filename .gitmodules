@@ -1,0 +1,3 @@
+[submodule "qwik-convertor-test"]
+	path = qwik-convertor-test
+	url = https://github.com/thejackshelton/qwik-convertor-test.git
